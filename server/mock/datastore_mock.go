@@ -1633,7 +1633,7 @@ type DeleteCertificateTemplateFunc func(ctx context.Context, id uint) error
 
 type GetCertificateTemplateByIdFunc func(ctx context.Context, id uint) (*fleet.CertificateTemplateResponseFull, error)
 
-type GetCertificateTemplatesByTeamIDFunc func(ctx context.Context, teamID uint, page int, perPage int) ([]*fleet.CertificateTemplateResponseSummary, *fleet.PaginationMetadata, error)
+type GetCertificateTemplatesByTeamIDFunc func(ctx context.Context, teamID uint, opts fleet.ListOptions) ([]*fleet.CertificateTemplateResponseSummary, *fleet.PaginationMetadata, error)
 
 type GetCurrentTimeFunc func(ctx context.Context) (time.Time, error)
 
@@ -9702,11 +9702,11 @@ func (s *DataStore) GetCertificateTemplateById(ctx context.Context, id uint) (*f
 	return s.GetCertificateTemplateByIdFunc(ctx, id)
 }
 
-func (s *DataStore) GetCertificateTemplatesByTeamID(ctx context.Context, teamID uint, page int, perPage int) ([]*fleet.CertificateTemplateResponseSummary, *fleet.PaginationMetadata, error) {
+func (s *DataStore) GetCertificateTemplatesByTeamID(ctx context.Context, teamID uint, opts fleet.ListOptions) ([]*fleet.CertificateTemplateResponseSummary, *fleet.PaginationMetadata, error) {
 	s.mu.Lock()
 	s.GetCertificateTemplatesByTeamIDFuncInvoked = true
 	s.mu.Unlock()
-	return s.GetCertificateTemplatesByTeamIDFunc(ctx, teamID, page, perPage)
+	return s.GetCertificateTemplatesByTeamIDFunc(ctx, teamID, opts)
 }
 
 func (s *DataStore) GetCurrentTime(ctx context.Context) (time.Time, error) {

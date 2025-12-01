@@ -2521,7 +2521,7 @@ type Datastore interface {
 	// GetCertificateTemplateById gets a certificate template by its ID.
 	GetCertificateTemplateById(ctx context.Context, id uint) (*CertificateTemplateResponseFull, error)
 	// GetCertificateTemplatesByTeamID gets all certificate templates for a team.
-	GetCertificateTemplatesByTeamID(ctx context.Context, teamID uint, page, perPage int) ([]*CertificateTemplateResponseSummary, *PaginationMetadata, error)
+	GetCertificateTemplatesByTeamID(ctx context.Context, teamID uint, opts ListOptions) ([]*CertificateTemplateResponseSummary, *PaginationMetadata, error)
 
 	// GetCurrentTime gets the current time from the database
 	GetCurrentTime(ctx context.Context) (time.Time, error)
